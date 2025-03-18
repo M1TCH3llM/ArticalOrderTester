@@ -1,43 +1,13 @@
 // EDIT THIS FILE TO COMPLETE ASSIGNMENT QUESTION 1
 import { convertTimeStamp } from './utils/convertTimestamp.js';
 import { scrapeArticles } from './utils/scrapeArticals.js';
+import { checkArticlesOrder } from './utils/checkArticlesOrder.js';
 
 // Improts chromium browser objective from playwright library.
 // playwrite is a library that allows you to automate browsers.
 // chromium refurs to chrome/ broweser engine
 import { chromium } from 'playwright';
 
-// This function scrapes articles from the Hacker News front page.
-// This function checks if the articles are in order from newest to oldest.
-function checkArticlesOrder(articles, testedArticles, lastTestedTimestamp, outOfOrder) {
-  // loop through the articles
-    for (const article of articles) {
-      // convert the timestamp to Unix timestamp using the convertTimestamp function
-        const currentTimestamp = convertTimeStamp(article.timestamp);
-
-        // check if the current timestamp is greater than the last tested timestamp
-        if (lastTestedTimestamp !== null && currentTimestamp > lastTestedTimestamp) {
-          // =if out of ourder outOfOrder flag is set to true
-            outOfOrder = true;
-            // log the out of order articles 
-            console.log("❌ Articles are NOT in order.");
-           // log the out of order articles
-            console.log("Out-of-order articles:");
-            const prevDate = new Date(lastTestedTimestamp).toISOString();
-            const currDate = new Date(currentTimestamp).toISOString();
-            console.log(`  Previous: ${articles[articles.length - articles.length + testedArticles - 1].title} (${prevDate})`);
-            console.log(`  Current: ${article.title} (${currDate})`);
-            // break the loop and ends test
-            break;
-        }
-        // set the last tested timestamp to the current timestamp
-        lastTestedTimestamp = currentTimestamp;
-        // increment the tested articles count
-        testedArticles++;
-    }
-    // return the tested articles, last tested timestamp, and out of order flag
-    return { testedArticles, lastTestedTimestamp, outOfOrder };
-}
 // Main function that runs the script
 async function ArticalsInOrder() {
     try {
@@ -46,7 +16,7 @@ async function ArticalsInOrder() {
         // create a new page
         const page = await browser.newPage();
         // navigate to the hacker news website
-        await page.goto('https://news.ycombinator.com/newest');
+        await page.goto('https://news.ycombinator.com/');
 
         // initialize variables
         let articles = [];
