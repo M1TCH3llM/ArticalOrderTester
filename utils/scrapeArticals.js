@@ -43,12 +43,10 @@ export async function scrapeArticles(page, articles, pageCount, outOfOrder) {
           } else {
              // Indicate to stop if no more button
               console.error("No 'More' button found.");
-              // return true;
           }
       } catch (error) {
         // Indicate to stop on error
           console.error("Error clicking 'More' button:", error);
-          // return true; 
       }
       // Indicate to continue
       return false; 

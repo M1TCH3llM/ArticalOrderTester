@@ -9,7 +9,6 @@ function convertTimeStamp(timestampString) {
       // check if the date is valid
       if (isNaN(date.getTime())) {
         // if the date is invalid return NaN (not a number)
-          return NaN;
       }
       // return the time in milliseconds
       return date.getTime();
