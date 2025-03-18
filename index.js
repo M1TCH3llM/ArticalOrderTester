@@ -1,26 +1,11 @@
 // EDIT THIS FILE TO COMPLETE ASSIGNMENT QUESTION 1
-
+import { convertTimeStamp } from './convertTimeStamp.js';
 
 // Improts chromium browser objective from playwright library.
 // playwrite is a library that allows you to automate browsers.
 // chromium refurs to chrome/ broweser engine
-const { chromium } = require('playwright');
+import { chromium } from 'playwright';
 
-// This function takes a timestamp string and returns a timestamp in milliseconds.
-function convertTimestamp(timestampString) {
-  // split the timestampString by space and get the first element
-  // this will give us the date part of the timestamp
-    const isoString = timestampString.split(' ')[0];
-    // create a new date object with the isoString
-    const date = new Date(isoString);
-    // check if the date is valid
-    if (isNaN(date.getTime())) {
-      // if the date is invalid return NaN (not a number)
-        return NaN;
-    }
-    // return the time in milliseconds
-    return date.getTime();
-}
 // This function scrapes articles from the Hacker News front page.
 async function scrapeArticles(page, articles, pageCount, outOfOrder) {
   // log the page number that is being scraped
@@ -65,12 +50,12 @@ async function scrapeArticles(page, articles, pageCount, outOfOrder) {
         } else {
            // Indicate to stop if no more button
             console.error("No 'More' button found.");
-            return true;
+            // return true;
         }
     } catch (error) {
       // Indicate to stop on error
         console.error("Error clicking 'More' button:", error);
-        return true; 
+        // return true; 
     }
     // Indicate to continue
     return false; 
@@ -80,7 +65,7 @@ function checkArticlesOrder(articles, testedArticles, lastTestedTimestamp, outOf
   // loop through the articles
     for (const article of articles) {
       // convert the timestamp to Unix timestamp using the convertTimestamp function
-        const currentTimestamp = convertTimestamp(article.timestamp);
+        const currentTimestamp = convertTimeStamp(article.timestamp);
 
         // check if the current timestamp is greater than the last tested timestamp
         if (lastTestedTimestamp !== null && currentTimestamp > lastTestedTimestamp) {
@@ -113,7 +98,7 @@ async function ArticalsInOrder() {
         // create a new page
         const page = await browser.newPage();
         // navigate to the hacker news website
-        await page.goto('https://news.ycombinator.com/newest');
+        await page.goto('https://news.ycombinator.com/');
 
         // initialize variables
         let articles = [];
@@ -155,7 +140,7 @@ async function ArticalsInOrder() {
           // creates a new array of articles to test by slicing the first 100 articles
             const articlesToTest = articles.slice(0, 100);
           // and calls the convertTimestamp function to convert the timestamp of the first article to Unix timestamp
-            lastTestedTimestamp = convertTimestamp(articlesToTest[0].timestamp);
+            lastTestedTimestamp = convertTimeStamp(articlesToTest[0].timestamp);
           // This line resets the testedArticles counter to 1. We start at one because the first artical has already been used to set the lastTestedTimestamp.
             testedArticles = 1;
             // calls the checkArticlesOrder function to check the order of the articles
@@ -181,3 +166,4 @@ async function ArticalsInOrder() {
 }
 // run the ArticalsInOrder function
 ArticalsInOrder();
+

@@ -1,7 +1,7 @@
 {
   "name": "qa_wolf_take_home",
   "version": "1.0.0",
-  "description": "",
+  "description": "Welcome to the QA Wolf take home assignment for our [QA Engineer](https://www.task-wolf.com/apply-qae) role! We appreciate your interest and look forward to seeing what you come up with.",
   "main": "index.js",
   "scripts": {},
   "keywords": [],
@@ -13,6 +13,15 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.39.0",
-    "@types/node": "^20.8.9"
-  }
+    "@types/node": "^20.8.9",
+    "type": "module"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/M1TCH3llM/TakeHomeTest.git"
+  },
+  "bugs": {
+    "url": "https://github.com/M1TCH3llM/TakeHomeTest/issues"
+  },
+  "homepage": "https://github.com/M1TCH3llM/TakeHomeTest#readme"
 }
